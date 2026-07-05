@@ -3,66 +3,318 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gemini CLI Hello World Landing Page - A premium, interactive hello world demo.">
-    <title>Hello World - Gemini CLI</title>
+    <meta name="description" content="Naval Commander: Battleships - A premium glassmorphic browser-based battleships game with smart AI and synthesized Web Audio effects.">
+    <title>Naval Commander: Battleships</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Elements -->
+    <!-- Ambient Telemetry & Wireframe Ocean Canvas -->
+    <canvas id="ambient-canvas"></canvas>
+
+    <!-- Background Glassmorphic Glow Elements -->
     <div class="glow-sphere sphere-1"></div>
     <div class="glow-sphere sphere-2"></div>
-    
-    <main class="container">
-        <header class="header">
+    <div class="glow-sphere sphere-3"></div>
+
+    <main class="game-container">
+        <!-- Header -->
+        <header class="game-header">
             <div class="logo">
-                <span class="logo-spark">✦</span>
-                <span class="logo-text">Gemini CLI</span>
+                <span class="logo-radar"></span>
+                <span class="logo-text">NAVAL <span class="accent-text">COMMANDER</span></span>
             </div>
-            <a href="https://github.com/timba2000/gemini_hello_world" target="_blank" class="github-badge" id="github-link">
-                <svg class="github-icon" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                <span>GitHub Repo</span>
-            </a>
+            <div class="controls-header">
+                <button id="sound-toggle" class="btn-icon" title="Toggle Sound">
+                    <svg id="sound-on-icon" class="icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.85 14,18.71V20.77C18.01,19.86 21,16.28 21,12C21,7.72 18.01,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.77 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+                    </svg>
+                    <svg id="sound-off-icon" class="icon hidden" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.43 14,18.7V20.77C15.38,20.44 16.63,19.78 17.7,18.9L20.73,21.93L22,20.66L4.27,3M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18.01,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,11.2 16.12,10.47 15.56,10.03L17.1,11.57C17.04,11.72 17,11.86 17,12C17,13.12 16.24,14.07 15.22,14.34L16.42,15.54C17.95,14.75 19,13.2 19,12M12,4L9.91,6.09L12,8.18V4Z" />
+                    </svg>
+                </button>
+                <button id="theme-toggle" class="btn-icon" title="Toggle Interface Mode">
+                    <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" />
+                    </svg>
+                </button>
+            </div>
         </header>
 
-        <section class="hero-section">
-            <div class="badge-wrapper">
-                <span class="interactive-badge">Hello, World! 👋</span>
+        <!-- Status Panel -->
+        <section class="status-panel glass-panel">
+            <div class="status-info">
+                <span class="status-label">CURRENT PHASE:</span>
+                <span id="phase-display" class="status-value highlight animate-pulse">DEPLOYMENT PHASE</span>
             </div>
-            <h1 class="main-title">Connected to <span class="gradient-text">Gemini CLI</span></h1>
-            <p class="subtitle">Your AI-first development playground is successfully set up and linked to your GitHub repository.</p>
+            <div id="game-stats" class="status-stats hidden">
+                <div class="stat-box">
+                    <span class="stat-title">YOUR SHIPS INTACT</span>
+                    <span id="player-ships-sunk" class="stat-value">5 / 5</span>
+                </div>
+                <div class="divider"></div>
+                <div class="stat-box">
+                    <span class="stat-title">ENEMY SHIPS INTACT</span>
+                    <span id="enemy-ships-sunk" class="stat-value">5 / 5</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Workspace -->
+        <section class="game-workspace">
             
-            <div class="action-card">
-                <div class="card-glass">
-                    <h3>Repository Details</h3>
-                    <div class="repo-info">
-                        <div class="info-row">
-                            <span class="info-label">Name:</span>
-                            <span class="info-value highlight">gemini_hello_world</span>
+            <!-- Left Side: Control/Deployment Panel -->
+            <div id="deployment-card" class="glass-panel deployment-panel">
+                <h3>Fleet Assembly</h3>
+                <p class="panel-desc">Drag or click to place your ships onto the tactical map. Press <kbd class="key-cap">R</kbd> or use the rotate button to rotate your active ship.</p>
+                
+                <div class="placement-controls">
+                    <button id="rotate-btn" class="btn btn-secondary flex-center">
+                        <svg viewBox="0 0 24 24" width="18" height="18" class="btn-svg"><path fill="currentColor" d="M12,4V1L8,5L12,9V6A6,6 0 0,1 18,12C18,15.31 15.31,18 12,18C8.69,18 6,15.31 6,12H4A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z"/></svg>
+                        Rotate Ship (R)
+                    </button>
+                    <button id="random-btn" class="btn btn-secondary flex-center">
+                        <svg viewBox="0 0 24 24" width="18" height="18" class="btn-svg"><path fill="currentColor" d="M14.83,13.41L13.42,14.82L16.59,18H15A3,3 0 0,1 12,15A3,3 0 0,1 9,18H7.41L10.58,14.83L9.17,13.42L5.84,16.75C5.46,16.29 5.15,15.77 4.91,15.2C5.6,14.47 6,13.5 6,12.5C6,10 4,8 1.5,8C1,8 0.5,8.1 0,8.27V10.3C0.45,10.11 0.95,10 1.5,10C2.9,10 4,11.1 4,12.5C4,13.9 2.9,15 1.5,15C0.95,15 0.45,14.89 0,14.7V16.73C0.87,17.47 1.9,18 3,18A5,5 0 0,0 8,13A5,5 0 0,0 13,18C14.1,18 15.13,17.47 16,16.73V18.73L13.88,16.6C13.5,17.06 13,17.43 12.44,17.68L14.83,13.41M19,10A5,5 0 0,0 14,15C12.9,15 11.87,15.53 11,16.27V14.27L13.12,16.4C13.5,15.94 14,15.57 14.56,15.32L12.17,19.59L13.58,21L16.75,17.83L19.16,19.24C19.54,19.7 19.85,20.22 20.09,20.79C19.4,21.5 19,22.5 19,23.5C19,26 21,28 23.5,28C24,28 24.5,27.9 25,27.73V25.7C24.55,25.89 24.05,26 23.5,26C22.1,26 21,24.9 21,23.5C21,22.1 22.1,21 23.5,21C24.05,21 24.55,21.11 25,21.3V19.27C24.13,18.53 23.1,18 22,18A5,5 0 0,0 17,23A5,5 0 0,0 12,18C10.9,18 9.87,18.53 9,19.27V17.27L11.12,19.4L12.53,17.99L9.36,14.82L7.95,16.23L11.28,12.9C11.66,13.36 11.97,13.88 12.21,14.45C11.52,15.18 11,16.15 11,17.15C11,19.65 13,21.65 15.5,21.65C16.05,21.65 16.55,21.54 17,21.35V19.32C16.13,20.06 15.1,20.59 14,20.59A5,5 0 0,1 9,15.59A5,5 0 0,1 14,10.59C15.1,10.59 16.13,11.12 17,11.86V9.86L14.88,12L13.47,10.59L16.64,7.42L18.05,8.83L14.72,12.16C14.34,11.7 14.03,11.18 13.79,10.61C14.48,9.88 15,8.91 15,7.91C15,5.41 13,3.41 10.5,3.41C9.95,3.41 9.45,3.52 9,3.71V5.74C9.87,5 10.9,4.47 12,4.47A5,5 0 0,1 17,9.47A5,5 0 0,1 12,14.47C10.9,14.47 9.87,13.94 9,13.2V15.2L11.12,13L12.53,14.41L9.36,17.58L7.95,16.17L11.28,12.84C11.66,13.3 11.97,13.82 12.21,14.45C11.52,15.18 11,16.15 11,16.15C11,19.65 13,21.65 15.5,21.65C16.05,21.65 16.55,21.54 17,21.35V19.32C16.13,20.06 15.1,20.59 14,20.59" /></svg>
+                        Auto Deploy
+                    </button>
+                </div>
+
+                <div class="difficulty-selector-title">AI DIFFICULTY:</div>
+                <div id="difficulty-selector" class="difficulty-selector">
+                    <button class="difficulty-btn" data-difficulty="easy">RECRUIT</button>
+                    <button class="difficulty-btn" data-difficulty="medium">OFFICER</button>
+                    <button class="difficulty-btn active" data-difficulty="hard">ADMIRAL</button>
+                </div>
+
+                <div class="ship-selector-title">SELECT SHIP:</div>
+                <div id="ship-inventory" class="ship-inventory">
+                    <!-- Dynamic Ships List -->
+                    <div class="ship-select-item active" data-ship-index="0">
+                        <div class="ship-select-meta">
+                            <span class="ship-name">Carrier</span>
+                            <span class="ship-length-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </span>
                         </div>
-                        <div class="info-row">
-                            <span class="info-label">Owner:</span>
-                            <span class="info-value">timba2000</span>
+                    </div>
+                    <div class="ship-select-item" data-ship-index="1">
+                        <div class="ship-select-meta">
+                            <span class="ship-name">Battleship</span>
+                            <span class="ship-length-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </span>
                         </div>
-                        <div class="info-row">
-                            <span class="info-label">Status:</span>
-                            <span class="info-value status-active">Active</span>
+                    </div>
+                    <div class="ship-select-item" data-ship-index="2">
+                        <div class="ship-select-meta">
+                            <span class="ship-name">Destroyer</span>
+                            <span class="ship-length-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ship-select-item" data-ship-index="3">
+                        <div class="ship-select-meta">
+                            <span class="ship-name">Submarine</span>
+                            <span class="ship-length-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ship-select-item" data-ship-index="4">
+                        <div class="ship-select-meta">
+                            <span class="ship-name">Patrol Boat</span>
+                            <span class="ship-length-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="start-game-btn" class="btn btn-primary btn-block" disabled>
+                    LOCK SHIPS & BEGIN BATTLE
+                </button>
+            </div>
+
+            <!-- Left Side (In battle): Friendly Ships Status Panel -->
+            <div id="battle-status-card" class="glass-panel battle-status-panel hidden">
+                <h3>Fleet Integrity</h3>
+                <div class="ships-health-list">
+                    <div class="ship-health-row" id="health-player-0">
+                        <span class="health-name">Carrier</span>
+                        <div class="health-bar-container">
+                            <div class="health-bar" style="width: 100%;"></div>
+                        </div>
+                        <span class="health-status">ACTIVE</span>
+                    </div>
+                    <div class="ship-health-row" id="health-player-1">
+                        <span class="health-name">Battleship</span>
+                        <div class="health-bar-container">
+                            <div class="health-bar" style="width: 100%;"></div>
+                        </div>
+                        <span class="health-status">ACTIVE</span>
+                    </div>
+                    <div class="ship-health-row" id="health-player-2">
+                        <span class="health-name">Destroyer</span>
+                        <div class="health-bar-container">
+                            <div class="health-bar" style="width: 100%;"></div>
+                        </div>
+                        <span class="health-status">ACTIVE</span>
+                    </div>
+                    <div class="ship-health-row" id="health-player-3">
+                        <span class="health-name">Submarine</span>
+                        <div class="health-bar-container">
+                            <div class="health-bar" style="width: 100%;"></div>
+                        </div>
+                        <span class="health-status">ACTIVE</span>
+                    </div>
+                    <div class="ship-health-row" id="health-player-4">
+                        <span class="health-name">Patrol Boat</span>
+                        <div class="health-bar-container">
+                            <div class="health-bar" style="width: 100%;"></div>
+                        </div>
+                        <span class="health-status">ACTIVE</span>
+                    </div>
+                </div>
+
+                <h3 class="enemy-fleet-header">Enemy Fleet Recon</h3>
+                <div class="ships-health-list">
+                    <div class="ship-health-row" id="health-enemy-0">
+                        <span class="health-name font-secondary">Carrier</span>
+                        <span class="recon-status">UNDETECTED</span>
+                    </div>
+                    <div class="ship-health-row" id="health-enemy-1">
+                        <span class="health-name font-secondary">Battleship</span>
+                        <span class="recon-status">UNDETECTED</span>
+                    </div>
+                    <div class="ship-health-row" id="health-enemy-2">
+                        <span class="health-name font-secondary">Destroyer</span>
+                        <span class="recon-status">UNDETECTED</span>
+                    </div>
+                    <div class="ship-health-row" id="health-enemy-3">
+                        <span class="health-name font-secondary">Submarine</span>
+                        <span class="recon-status">UNDETECTED</span>
+                    </div>
+                    <div class="ship-health-row" id="health-enemy-4">
+                        <span class="health-name font-secondary">Patrol Boat</span>
+                        <span class="recon-status">UNDETECTED</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grids Area -->
+            <div class="grids-container">
+                <!-- Player Board Panel -->
+                <div class="board-panel glass-panel active-turn-glow" id="player-board-panel">
+                    <div class="board-title">
+                        <span class="status-indicator friendly-indicator"></span>
+                        <h4>MY FLEET</h4>
+                    </div>
+                    <div class="board-wrapper">
+                        <!-- Left Labels (1-10) -->
+                        <div class="row-labels">
+                            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+                        </div>
+                        <div class="grid-content">
+                            <!-- Top Labels (A-J) -->
+                            <div class="col-labels">
+                                <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div><div>F</div><div>G</div><div>H</div><div>I</div><div>J</div>
+                            </div>
+                            <!-- Grid Area -->
+                            <div id="player-grid" class="ocean-grid">
+                                <div class="radar-sweep"></div>
+                                <div class="laser-line-x"></div>
+                                <div class="laser-line-y"></div>
+                                <div class="laser-reticle"></div>
+                                <div class="ships-overlay-container"></div>
+                                <!-- Cells generated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enemy Board Panel (Active during battle) -->
+                <div class="board-panel glass-panel disabled-panel" id="enemy-board-panel">
+                    <div class="board-title">
+                        <span class="status-indicator enemy-indicator"></span>
+                        <h4>RADAR TARGET</h4>
+                    </div>
+                    <div class="board-wrapper">
+                        <!-- Left Labels (1-10) -->
+                        <div class="row-labels">
+                            <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+                        </div>
+                        <div class="grid-content">
+                            <!-- Top Labels (A-J) -->
+                            <div class="col-labels">
+                                <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div><div>F</div><div>G</div><div>H</div><div>I</div><div>J</div>
+                            </div>
+                            <!-- Grid Area -->
+                            <div id="enemy-grid" class="ocean-grid">
+                                <div class="radar-sweep"></div>
+                                <div class="laser-line-x"></div>
+                                <div class="laser-line-y"></div>
+                                <div class="laser-reticle"></div>
+                                <div class="ships-overlay-container"></div>
+                                <!-- Generated by JS -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="cta-group">
-                <button class="btn btn-primary" id="celebrate-btn">Celebrate Setup</button>
+        </section>
+
+        <!-- Tactical Console / Action Log -->
+        <section class="console-panel glass-panel">
+            <div class="console-header">
+                <span class="console-title"><span class="console-dot"></span>TACTICAL COM-CONSOLE</span>
+                <span id="ping-rate" class="ping-rate">PING: 24ms</span>
+            </div>
+            <div id="console-logs" class="console-logs font-mono">
+                <div class="log-entry system">[SYSTEM] Welcome to Naval Commander. Deploy your fleet.</div>
             </div>
         </section>
     </main>
 
-    <!-- Celebration Overlay/Particles -->
-    <div class="celebration-container" id="celebration-container"></div>
+    <!-- Game Over Overlay -->
+    <div id="game-over-overlay" class="overlay hidden">
+        <div class="overlay-glass">
+            <h1 id="game-over-title" class="gradient-text">VICTORY</h1>
+            <p id="game-over-desc">You have sunk the entire enemy fleet and defended your waters!</p>
+            <div class="stats-summary">
+                <div class="summary-box">
+                    <span class="summary-label">Accurate Hits</span>
+                    <span id="stat-hits" class="summary-val">0</span>
+                </div>
+                <div class="summary-box">
+                    <span class="summary-label">Total Shots</span>
+                    <span id="stat-shots" class="summary-val">0</span>
+                </div>
+                <div class="summary-box">
+                    <span class="summary-label">Accuracy Rate</span>
+                    <span id="stat-accuracy" class="summary-val">0%</span>
+                </div>
+            </div>
+            <button id="restart-game-btn" class="btn btn-primary">COMMISSION NEW MISSION</button>
+        </div>
+    </div>
 
+    <!-- Script imports -->
     <script src="app.js"></script>
 </body>
 </html>

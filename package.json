@@ -1,0 +1,14 @@
+{
+  "name": "gemini_hello_world",
+  "version": "1.0.0",
+  "description": "Battleships game with premium visual aesthetics and custom test harness",
+  "main": "app.js",
+  "scripts": {
+    "test": "node cli-test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  },
+  "author": "Tim Barnes",
+  "license": "ISC"
+}
